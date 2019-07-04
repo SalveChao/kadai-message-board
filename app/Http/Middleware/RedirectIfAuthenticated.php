@@ -17,6 +17,7 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        //ログインしているかどうかを判断するファイル（していればログインページではなくホームへ誘導）
         if (Auth::guard($guard)->check()) {
             return redirect('/');
         }
