@@ -42,7 +42,7 @@ class MicropostsController extends Controller
         $this->validate($request, [
             'content' => 'required|max:191',
         ]);
-
+ //create メソッドを使って Micropost を保存
         $request->user()->microposts()->create([
             'content' => $request->content,
         ]);

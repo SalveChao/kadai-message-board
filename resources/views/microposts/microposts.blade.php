@@ -1,3 +1,4 @@
+<!--投稿した Microposts の一覧表示をwelcomeページへ-->
 <ul class="list-unstyled">
     @foreach ($microposts as $micropost)
         <li class="media mb-3">

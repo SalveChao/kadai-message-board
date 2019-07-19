@@ -1,17 +1,24 @@
+<!--各ユーザーの詳細ページ-->
 @extends('layouts.app')
 
 @section('content')
-    <h1>id = {{ $micropost->id }} のメッセージ詳細ページ</h1>
-
-    <table class="table table-bordered">
-        <tr>
-            <th>id</th>
-            <td>{{ $micropost->id }}</td>
-        </tr>
-        <tr>
-            <th>メッセージ</th>
-            <td>{{ $micropost->content }}</td>
-        </tr>
-    </table>
-{!! link_to_route('microposts.edit', 'メッセージ編集', ['id' => $micropost->id], ['class' => 'btn btn-lg btn-warning']) !!}
+   <div class="row">
+        <aside class="col-sm-4">
+            @include('users.card', ['user' => $user])
+        </aside>
+        <div class="col-sm-8">
+            @include('users.navtabs', ['user' => $user])
+            @if (Auth::id() == $user->id)
+                {!! Form::open(['route' => 'microposts.store']) !!}
+                    <div class="form-group">
+                        {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '2']) !!}
+                        {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
+                    </div>
+                {!! Form::close() !!}
+            @endif
+            @if (count($microposts) > 0)
+                @include('microposts.microposts', ['microposts' => $microposts])
+            @endif
+        </div>
+    </div>
 @endsection
