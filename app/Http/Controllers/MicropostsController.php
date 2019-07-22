@@ -38,11 +38,11 @@ class MicropostsController extends Controller
     }
         
     public function store(Request $request)
-    { //validateは適切なバリデーション処理を行う。validatesRequestsトレイトも継承
+    {   //validateは適切なバリデーション処理を行う。validatesRequestsトレイトも継承
         $this->validate($request, [
             'content' => 'required|max:191',
         ]);
- //create メソッドを使って Micropost を保存
+         //モデルにfillable記述することでcreate メソッドを使ってを保存
         $request->user()->microposts()->create([
             'content' => $request->content,
         ]);
@@ -71,12 +71,25 @@ class MicropostsController extends Controller
     
     public function destroy($id)
     {
-        $micropost = \App\Micropost::find($id);
+        $micropost = Micropost::find($id);
         //認証idと投稿者のユーザーidが一致しているかをチェック
         if (\Auth::id() === $micropost->user_id) {
             $micropost->delete();
         }
 
         return back();
+    }
+    
+    public function favorite_users($id)
+    {
+        
+        $micropost = Micropost::find($id);
+        $favorite_users = $micropost->favorite_users()->paginate(5);
+
+        $data = ['micropost' => $micropost, 'users' => $favorite_users,];
+
+        $data += $this->counts($user); //viewにフォロワー件数も渡している
+dd($data);
+        return view('users.favorites', $data);
     }
 }

@@ -1,3 +1,4 @@
+<!--ユーザー一覧ページ。小さい方のグラバターと名前とView profile-->
 @if (count($users) > 0)
     <ul class="list-unstyled">
         @foreach ($users as $user)

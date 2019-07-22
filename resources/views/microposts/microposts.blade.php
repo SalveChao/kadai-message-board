@@ -1,4 +1,4 @@
-<!--投稿した Microposts の一覧表示をwelcomeページへ-->
+<!--投稿した Microposts の一覧表示をwelcomeとshowページへ-->
 <ul class="list-unstyled">
     @foreach ($microposts as $micropost)
         <li class="media mb-3">
@@ -9,13 +9,18 @@
                 </div>
                 <div>
                     <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>
-                </div>
-                <div>
-                    @if (Auth::id() == $micropost->user_id)
-                        {!! Form::open(['route' => ['microposts.destroy', $micropost->id], 'method' => 'delete']) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                        {!! Form::close() !!}
-                    @endif
+                </div>            
+                <div class="row">
+                    <div class="col-sm-3">            
+                        @include('favorites.favorite_button', ['user' => $user])　<!-- お気に入り -->
+                    </div>    
+                    <div class="col-sm-3">
+                        @if (Auth::id() == $micropost->user_id)
+                            {!! Form::open(['route' => ['microposts.destroy', $micropost->id], 'method' => 'delete']) !!}
+                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                            {!! Form::close() !!}
+                        @endif
+                    </div>    
                 </div>
             </div>
         </li>

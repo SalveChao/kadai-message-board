@@ -2,6 +2,6 @@
 
 @section('content')
     @if (Auth::check())
-    @include('users.users', ['users' => $users])
+        @include('users.users', ['users' => $users])
     @endif
 @endsection

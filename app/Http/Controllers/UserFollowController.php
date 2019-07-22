@@ -12,7 +12,6 @@ class UserFollowController extends Controller
         \Auth::user()->follow($id);
         return back();
     }
-    
     //ユーザーをアンフォローできるように
     public function destroy($id)
     {

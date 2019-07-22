@@ -1,3 +1,4 @@
+<!--一番大きいグラバターとフォローボタンを引っ張っている-->
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">{{ $user->name }}</h3>
